@@ -1,0 +1,22 @@
+<h2>Transcript History</h2>
+
+@if (transcripts().length > 0) {
+  <table>
+    <thead>
+      <tr>
+        <th>Text</th>
+        <th>Created At</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (transcript of transcripts(); track transcript.id) {
+        <tr>
+          <td>{{ transcript.text }}</td>
+          <td>{{ transcript.createdAt?.toDate() | date: 'medium' }}</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+} @else {
+  <p>No transcripts found.</p>
+}

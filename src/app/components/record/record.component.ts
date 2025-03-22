@@ -4,19 +4,21 @@ import { AnalyzeComponent } from '../analyze/analyze.component';
 import { ApiService } from '../../services/api.service';
 import { FormsModule } from '@angular/forms'; // For ngModel
 import { CommonModule } from '@angular/common'; // For *ngIf
+import { TranscriptServiceService } from '../../services/transcript-service.service';
 
 @Component({
   selector: 'app-record',
   templateUrl: './record.component.html',
-  imports: [AnalyzeComponent, FormsModule, CommonModule],
+  imports: [AnalyzeComponent, FormsModule, CommonModule,],
   styleUrls: ['./record.component.css']
 })
 
 export class RecordComponent {
   @ViewChild('audioPlayer') audioPlayer!: ElementRef;
 
-  constructor(private audioService: AudioService, private apiService: ApiService) {}
+  constructor(private audioService: AudioService, private apiService: ApiService, ) {}
   // analyzeComponent: AnalyzeComponent = inject(AnalyzeComponent);
+  transcriptService: TranscriptServiceService = inject(TranscriptServiceService);
   startRecording() {
     this.audioService.startRecording();
   }
@@ -68,6 +70,7 @@ export class RecordComponent {
     if (this.recognition) {
       // this.analyzeComponent.analyzeText(this.transcript);
       this.analyzeText(this.transcript);
+      this.transcriptService.uploadTranscript(this.transcript);
       this.recognition.onend = null; // Prevent auto-restart on stop
       this.recognition.stop();
       this.recognition = null;
