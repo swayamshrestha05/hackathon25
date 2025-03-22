@@ -1,0 +1,27 @@
+<div class="breathing-container">
+    <!-- Timer on the right -->
+    <div class="timer-container">
+      <div class="timer">{{ formattedTime }}</div>
+    </div>
+  
+    <!-- Expanding circle in the center -->
+    <div class="circle-container">
+      <div class="circle" [ngClass]="{'expand': isInhaling, 'hold-expanded': isHoldingExpanded, 'shrink': isExhaling, 'hold-reduced': isHoldingReduced}"></div>
+    </div>
+  
+    <!-- Instructions at the bottom -->
+    <div class="instructions">
+      @if (isInhaling) {
+        <p>Inhale deeply through your nose for a count of 4 seconds</p>
+      }
+      @if (isHoldingExpanded) {
+        <p>Hold your breath for a count of 4 seconds</p>
+      }
+      @if (isExhaling) {
+        <p>Exhale slowly through your mouth for a count of 4 seconds</p>
+      }
+      @if (isHoldingReduced) {
+        <p>Hold your breath again for a count of 4 seconds</p>
+      }
+    </div>
+  </div>

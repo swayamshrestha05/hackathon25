@@ -1,0 +1,64 @@
+.breathing-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f8ff;
+    font-family: Arial, sans-serif;
+    position: relative;
+  }
+  
+  /* Timer on the right */
+  .timer-container {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+  }
+  
+  .timer {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  /* Expanding circle in the center */
+  .circle-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60vh; /* Adjust as needed */
+  }
+  
+  .circle {
+    width: 100px; /* Initial size of the circle */
+    height: 100px; /* Initial size of the circle */
+    border-radius: 50%;
+    background-color: #e757e7; /* Purple color for the circle */
+    transition: transform 4s ease-in-out; /* Slow transition for scaling (4 seconds) */
+  }
+  
+  .expand {
+    transform: scale(2); /* Expand the circle */
+  }
+  
+  .hold-expanded {
+    transform: scale(2); /* Hold at expanded size */
+  }
+  
+  .shrink {
+    transform: scale(0.5); /* Shrink the circle */
+  }
+  
+  .hold-reduced {
+    transform: scale(0.5); /* Hold at reduced size */
+  }
+  
+  /* Instructions at the bottom */
+  .instructions {
+    position: absolute;
+    bottom: 20px;
+    font-size: 1.5rem;
+    color: #555;
+    text-align: center;
+  }
