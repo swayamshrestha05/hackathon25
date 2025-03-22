@@ -1,1 +1,33 @@
+<!-- <h1>{{ title }}</h1> -->
+
+<!-- Record Component -->
 <app-record></app-record>
+
+<!-- Text Analysis Section -->
+<div>
+    <h2>Analyze Text</h2>
+    <textarea
+      [(ngModel)]="userText"
+      placeholder="Enter your text"
+      rows="5"
+      cols="40"
+    ></textarea>
+    <br />
+    <button (click)="analyzeText()">Analyze</button>
+  </div>
+  
+  <!-- Display Results -->
+  <div *ngIf="result">
+    <h3>Result:</h3>
+    <p><strong>Emotion:</strong> {{ result.emotion }}</p>
+    <p><strong>Score:</strong> {{ result.score }}</p>
+  </div>
+  
+  <!-- Debugging: Display user input -->
+  <div>
+    <h3>Debug Info:</h3>
+    <p><strong>User Text:</strong> {{ userText }}</p>
+    <p><strong>API Response:</strong> {{ result | json }}</p>
+  </div>
+<!-- Router Outlet -->
+<router-outlet></router-outlet>
