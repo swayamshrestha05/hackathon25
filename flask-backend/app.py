@@ -31,4 +31,4 @@ def predict():
     return jsonify(filtered_result)
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)  # Run the API
+    app.run(host='0.0.0.0', port=5001)  # Run the API

@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root', // Provided in the root injector
 })
 export class ApiService {
-  private apiUrl = 'http://localhost:5000'; // Replace with your Flask API URL
+  private apiUrl = 'http://localhost:5001'; // Replace with your Flask API URL
 
   constructor(private http: HttpClient) {}
 

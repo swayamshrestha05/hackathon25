@@ -1,17 +1,22 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
+import { Component, ViewChild, ElementRef, inject } from '@angular/core';
 import { AudioService } from '../../services/audio.service';
+import { AnalyzeComponent } from '../analyze/analyze.component';
+import { ApiService } from '../../services/api.service';
+import { FormsModule } from '@angular/forms'; // For ngModel
+import { CommonModule } from '@angular/common'; // For *ngIf
 
 @Component({
   selector: 'app-record',
   templateUrl: './record.component.html',
+  imports: [AnalyzeComponent, FormsModule, CommonModule],
   styleUrls: ['./record.component.css']
 })
 
 export class RecordComponent {
   @ViewChild('audioPlayer') audioPlayer!: ElementRef;
 
-  constructor(private audioService: AudioService) {}
-
+  constructor(private audioService: AudioService, private apiService: ApiService) {}
+  // analyzeComponent: AnalyzeComponent = inject(AnalyzeComponent);
   startRecording() {
     this.audioService.startRecording();
   }
@@ -61,6 +66,8 @@ export class RecordComponent {
 
   stopSpeechRecognition() {
     if (this.recognition) {
+      // this.analyzeComponent.analyzeText(this.transcript);
+      this.analyzeText(this.transcript);
       this.recognition.onend = null; // Prevent auto-restart on stop
       this.recognition.stop();
       this.recognition = null;
@@ -68,4 +75,31 @@ export class RecordComponent {
     }
   }
 
+  userText: string = '';
+  result: any = null;
+
+  analyzeText(transcript: string) {
+    console.log('Sending text to API:', transcript); 
+    this.apiService.analyzeText(transcript).subscribe(
+      (response: string | any[]) => {
+        console.log('API response:', response);
+
+       
+        if (Array.isArray(response) && response.length > 0) {
+          this.result = {
+            emotion: response[0].label, 
+            score: response[0].score,
+          };
+        } else {
+          console.error('Unexpected API response format:', response);
+        }
+      },
+      (error: any) => {
+        console.error('Error analyzing text:', error); // Handle errors
+      }
+    );
+  }
+
 }
+
+

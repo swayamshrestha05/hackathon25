@@ -18,9 +18,9 @@ export class AnalyzeComponent {
   constructor(private apiService: ApiService) {}
 
   
-  analyzeText() {
-    console.log('Sending text to API:', this.userText); 
-    this.apiService.analyzeText(this.userText).subscribe(
+  analyzeText(transcript: string) {
+    console.log('Sending text to API:', transcript); 
+    this.apiService.analyzeText(transcript).subscribe(
       (response: string | any[]) => {
         console.log('API response:', response);
 
