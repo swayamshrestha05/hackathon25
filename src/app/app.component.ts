@@ -16,7 +16,5 @@ import { HistoryComponent } from './components/history/history.component';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  journal(){
-    
-  }
+
 }

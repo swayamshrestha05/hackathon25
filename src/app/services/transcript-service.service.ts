@@ -12,11 +12,13 @@ export class TranscriptServiceService {
     console.log('this is transcript service')
   }
 
-  async uploadTranscript(text: string) {
+  async uploadTranscript(text: string, emotion: string) {
+    console.log('uploading data')
     const transcriptCollection = collection(this.firestore, 'transcripts');
 
     const data = {
       text: text,
+      emotion: emotion,
       createdAt: Timestamp.now()
     };
 

@@ -70,7 +70,7 @@ export class RecordComponent {
     if (this.recognition) {
       // this.analyzeComponent.analyzeText(this.transcript);
       this.analyzeText(this.transcript);
-      this.transcriptService.uploadTranscript(this.transcript);
+      // this.transcriptService.uploadTranscript(this.transcript);
       this.recognition.onend = null; // Prevent auto-restart on stop
       this.recognition.stop();
       this.recognition = null;
@@ -93,6 +93,8 @@ export class RecordComponent {
             emotion: response[0].label,
             score: response[0].score,
           };
+        this.transcriptService.uploadTranscript(this.transcript, this.result.emotion);
+
         } else {
           console.error('Unexpected API response format:', response);
         }

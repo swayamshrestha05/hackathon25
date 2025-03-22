@@ -13,10 +13,14 @@ import { toSignal } from '@angular/core/rxjs-interop';
 export class HistoryComponent {
   private transcriptService = inject(TranscriptServiceService);
   transcripts = toSignal(this.transcriptService.getTranscripts(), { initialValue: [] });
+  isModalOpen = false;
+  constructor() {}
 
-  constructor() {
-    effect(() => {
-      console.log('Fetched transcripts:', this.transcripts());
-    });
+  openModal() {
+    this.isModalOpen = true;
+  }
+
+  closeModal() {
+    this.isModalOpen = false;
   }
 }
