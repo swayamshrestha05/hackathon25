@@ -4,7 +4,7 @@
     <button (click)="stopSpeechRecognition()">Stop Speech-to-Text</button>
 }
 
-@if (isRecordingStopped) {
+@if (isTextToSpeak) {
 
   <!-- @if (result) {
     <h3>Result:</h3>
@@ -17,13 +17,19 @@
     <p><strong>API Response:</strong> {{ result | json }}</p>
   </div> -->
     <div class = "textToSpeak">
-        @if (textToSpeak) {
+        @if (textToSpeak && result) {
+            <p>You must be feeling {{result.emotion}}. </p>
             <p>{{textToSpeak}}</p>
         }
     </div>
 
 }
 
+@if (startBreathe){
+    <div class = "breathing">
+        <app-breathing-exercise></app-breathing-exercise>
+    </div>
+}
 
   <!-- <div class="journal">
     <h2>Emotion Response</h2>

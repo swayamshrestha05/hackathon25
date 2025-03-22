@@ -5,6 +5,7 @@ import { ApiService } from '../../services/api.service';
 import { FormsModule } from '@angular/forms'; // For ngModel
 import { CommonModule } from '@angular/common'; // For *ngIf
 import { TextToSpeechService } from '../../services/text-to-speech.service';
+import {BreathingExerciseComponent} from '../breathing-exercise/breathing-exercise.component';
 
 // Define the meditation themes as an object
 const meditationThemes: { [key: string]: string } = {
@@ -40,7 +41,7 @@ const meditationThemes: { [key: string]: string } = {
 @Component({
   selector: 'app-record',
   templateUrl: './record.component.html',
-  imports: [AnalyzeComponent, FormsModule, CommonModule],
+  imports: [AnalyzeComponent, FormsModule, CommonModule, BreathingExerciseComponent],
   styleUrls: ['./record.component.css']
 })
 
@@ -66,7 +67,9 @@ export class RecordComponent {
   userText: string = '';
   result: any = null;
   isRecordingStopped: boolean = false;
+  isTextToSpeak: boolean = false;
   textToSpeak: string = '';
+  startBreathe: boolean = false;
 
   startSpeechRecognition() {
     const SpeechRecognition = (window as any).webkitSpeechRecognition || (window as any).SpeechRecognition;
@@ -121,7 +124,14 @@ export class RecordComponent {
       console.log(this.textToSpeak);
       // Call the function to speak the response
       this.speak();
+      setTimeout(() => {this.breathe();}, 11000);
+      
+
     }
+  breathe() {
+    this.isTextToSpeak = false;
+    this.startBreathe = true;
+  }
   stopSpeechRecognition() {
     if (this.recognition) {
       // this.analyzeComponent.analyzeText(this.transcript);
@@ -132,6 +142,7 @@ export class RecordComponent {
       this.recognition = null;
       console.log('Speech recognition stopped manually.');
       this.isRecordingStopped = true;
+      this.isTextToSpeak = true;
     }
   }
 
