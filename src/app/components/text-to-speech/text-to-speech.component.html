@@ -1,0 +1,10 @@
+
+<div class="text-to-speech">
+  <h2>Text to Speech</h2>
+  <textarea [(ngModel)]="textToSpeak" placeholder="Enter text here..." rows="5"></textarea>
+  <div>
+    <button (click)="speak()">Speak</button>
+    <button (click)="onStop()">Stop</button>
+  </div>
+</div>
+

@@ -15,19 +15,24 @@
     <br />
     <button (click)="analyzeText()">Analyze</button>
   </div>
-  
+
   <!-- Display Results -->
   <div *ngIf="result">
     <h3>Result:</h3>
     <p><strong>Emotion:</strong> {{ result.emotion }}</p>
     <p><strong>Score:</strong> {{ result.score }}</p>
   </div>
-  
+
   <!-- Debugging: Display user input -->
   <div>
     <h3>Debug Info:</h3>
     <p><strong>User Text:</strong> {{ userText }}</p>
     <p><strong>API Response:</strong> {{ result | json }}</p>
   </div>
+
+  <app-text-to-speech></app-text-to-speech>
 <!-- Router Outlet -->
+
+
+
 <router-outlet></router-outlet>
