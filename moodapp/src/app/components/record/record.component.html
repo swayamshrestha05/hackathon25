@@ -1,6 +1,6 @@
-<!-- <button (click)="startRecording()">🎙 Start Recording</button>
-<button (click)="stopRecording()">⏹ Stop</button> -->
-<button (click)="startSpeechRecognition()">Start Speech-to-Text</button>
-<button (click)="stopSpeechRecognition()">Stop Speech-to-Text</button>
-<audio #audioPlayer controls></audio>
-<p>Transcription: {{ transcript }}</p>
+<div class="record-tool">
+    <h1>Tell me about your day</h1>
+    <button class="start" (click)="startSpeechRecognition()">Start Journal</button>
+    <button class="stop" (click)="stopSpeechRecognition()">Stop Journal</button>
+    <p>Transcription: {{ transcript }}</p>
+</div>
