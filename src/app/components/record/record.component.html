@@ -1,39 +1,34 @@
-<h1>Tell me about your day</h1>
-<button (click)="startSpeechRecognition()">Start Speech-to-Text</button>
-<button (click)="stopSpeechRecognition()">Stop Speech-to-Text</button>
-<p>Transcription: {{ transcript }}</p>
+@if (!isRecordingStopped) {
+    <h1>Tell me about your day</h1>
+    <button (click)="startSpeechRecognition()">Start Speech-to-Text</button>
+    <button (click)="stopSpeechRecognition()">Stop Speech-to-Text</button>
+}
 
+@if (isRecordingStopped) {
 
-<!-- Text Analysis Section -->
-<!-- <div>
-    <h2>Analyze Text</h2>
-    <textarea
-      [(ngModel)]="userText"
-      placeholder="Enter your text"
-      rows="5"
-      cols="40"
-    ></textarea>
-    <br />
-  </div> -->
-
-  <!-- Display Results -->
-  <div *ngIf="result">
+  <!-- @if (result) {
     <h3>Result:</h3>
     <p><strong>Emotion:</strong> {{ result.emotion }}</p>
     <p><strong>Score:</strong> {{ result.score }}</p>
-  </div>
-
-  <!-- Debugging: Display user input -->
+  }
   <div>
     <h3>Debug Info:</h3>
     <p><strong>User Text:</strong> {{ userText }}</p>
     <p><strong>API Response:</strong> {{ result | json }}</p>
-  </div>
+  </div> -->
+    <div class = "textToSpeak">
+        @if (textToSpeak) {
+            <p>{{textToSpeak}}</p>
+        }
+    </div>
 
-  <div class="journal">
+}
+
+
+  <!-- <div class="journal">
     <h2>Emotion Response</h2>
     <div>
       <button (click)="generateResponse(result.emotion)">Speak Response</button>
       <button (click)="onStop()">Stop</button>
     </div>
-  </div>
+  </div> -->

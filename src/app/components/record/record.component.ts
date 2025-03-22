@@ -49,19 +49,24 @@ export class RecordComponent {
 
   constructor(private audioService: AudioService, private apiService: ApiService, private textToSpeechService: TextToSpeechService) {}
   // analyzeComponent: AnalyzeComponent = inject(AnalyzeComponent);
-  startRecording() {
-    this.audioService.startRecording();
-  }
+//   startRecording() {
+//     this.audioService.startRecording();
+//   }
 
-  async stopRecording() {
-    const audioBlob = await this.audioService.stopRecording();
-    const audioURL = URL.createObjectURL(audioBlob);
-    this.audioPlayer.nativeElement.src = audioURL;
- }
+//   async stopRecording() {
+//     const audioBlob = await this.audioService.stopRecording();
+//     const audioURL = URL.createObjectURL(audioBlob);
+//     this.audioPlayer.nativeElement.src = audioURL;
+//     this.isRecordingStopped = true;
+//  }
 
   recognition: any;
   transcript: string = '';
   uniqueSentences: Set<string> = new Set();
+  userText: string = '';
+  result: any = null;
+  isRecordingStopped: boolean = false;
+  textToSpeak: string = '';
 
   startSpeechRecognition() {
     const SpeechRecognition = (window as any).webkitSpeechRecognition || (window as any).SpeechRecognition;
@@ -96,19 +101,41 @@ export class RecordComponent {
 
   }
 
+    // Code for journal entry response
+
+    
+
+    speak(): void {
+      if (this.textToSpeak.trim()) {
+        this.textToSpeechService.speak(this.textToSpeak);
+      }
+    }
+  
+    onStop(): void {
+      this.textToSpeechService.stop();
+    }
+  
+    // Function to generate a response based on emotion and speak it
+    generateResponse(emotion: string): void {
+      this.textToSpeak = meditationThemes[emotion] || "I’m not sure how you're feeling, but remember it's okay to have all sorts of emotions.";
+      console.log(this.textToSpeak);
+      // Call the function to speak the response
+      this.speak();
+    }
   stopSpeechRecognition() {
     if (this.recognition) {
       // this.analyzeComponent.analyzeText(this.transcript);
       this.analyzeText(this.transcript);
+      // this.generateResponse(this.result.emotion);
       this.recognition.onend = null; // Prevent auto-restart on stop
       this.recognition.stop();
       this.recognition = null;
       console.log('Speech recognition stopped manually.');
+      this.isRecordingStopped = true;
     }
   }
 
-  userText: string = '';
-  result: any = null;
+
 
   analyzeText(transcript: string) {
     console.log('Sending text to API:', transcript);
@@ -125,6 +152,7 @@ export class RecordComponent {
         } else {
           console.error('Unexpected API response format:', response);
         }
+        this.generateResponse(this.result.emotion);
       },
       (error: any) => {
         console.error('Error analyzing text:', error); // Handle errors
@@ -132,27 +160,6 @@ export class RecordComponent {
     );
   }
 
-  // Code for journal entry
-
-  textToSpeak: string = '';
-
-  speak(): void {
-    if (this.textToSpeak.trim()) {
-      this.textToSpeechService.speak(this.textToSpeak);
-    }
-  }
-
-  onStop(): void {
-    this.textToSpeechService.stop();
-  }
-
-  // Function to generate a response based on emotion and speak it
-  generateResponse(emotion: string): void {
-    this.textToSpeak = meditationThemes[emotion] || "I’m not sure how you're feeling, but remember it's okay to have all sorts of emotions.";
-
-    // Call the function to speak the response
-    this.speak();
-}
 
 }
 

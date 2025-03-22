@@ -23,3 +23,11 @@ button:active{
     color: white;
     transition: 0.2;
 }
+
+.textToSpeak{
+    font-family: "Libre Baskerville", serif;
+    font-weight: 400;
+    font-size: 37px;
+    font-style: normal;
+    margin: 2.5rem;
+}
