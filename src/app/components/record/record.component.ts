@@ -40,11 +40,11 @@ export class RecordComponent {
     this.recognition.start()
     this.recognition.onresult = (event: any) => {
       let finalTranscript = '';
-      
+
       for (let i = event.resultIndex; i < event.results.length; i++) {
         if (event.results[i].isFinal) { // ✅ Only take finalized speech
           let newText = event.results[i][0].transcript.trim();
-          
+
           // ✅ Avoid duplication by checking the Set
           if (!this.uniqueSentences.has(newText)) {
             this.uniqueSentences.add(newText);
@@ -79,15 +79,15 @@ export class RecordComponent {
   result: any = null;
 
   analyzeText(transcript: string) {
-    console.log('Sending text to API:', transcript); 
+    console.log('Sending text to API:', transcript);
     this.apiService.analyzeText(transcript).subscribe(
       (response: string | any[]) => {
         console.log('API response:', response);
 
-       
+
         if (Array.isArray(response) && response.length > 0) {
           this.result = {
-            emotion: response[0].label, 
+            emotion: response[0].label,
             score: response[0].score,
           };
         } else {
